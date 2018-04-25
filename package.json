@@ -1,0 +1,19 @@
+{
+  "name": "@things-scene/baidu-map",
+  "description": "baidu-map component for things-scene",
+  "version": "0.1.0",
+  "things-scene": true,
+  "main": "src/index.js",
+  "author": "heartyoh",
+  "scripts": {
+    "serve": "things-shell",
+    "serve:dev": "things-shell-dev"
+  },
+  "dependencies": {
+    "@hatiolab/things-shell": "*",
+    "@things-scene/form": "*",
+    "@things-scene/random": "*",
+    "@things-scene/restful": "*",
+    "@things-scene/table": "*"
+  }
+}
