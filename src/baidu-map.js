@@ -51,7 +51,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
 
   static load(component) {
 
-    var key = component.get('apiKey');
+    var key = component.get('apiKey') || 'bMxSipKRYIqOi2q4M7XR7IqKM2Xt3fNy';
     ScriptLoader.load(`http://api.map.baidu.com/getscript?v=1.3&ak=${key}&services=`, [
       'http://api.map.baidu.com/res/13/bmap.css'
     ]).then(() => component.onload(), error);
