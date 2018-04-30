@@ -1,4 +1,9 @@
 bower_components
 node_modules
 boards
+licenses
+db.sqlite
 npm-debug.log
+.yo-rc.json
+.editorconfig
+.vscode

@@ -26,12 +26,12 @@ const NATURE = {
   'value-property': 'latlng'
 }
 
-var {
+import {
   Component,
   HTMLOverlayContainer,
   ScriptLoader,
   error
-} = scene
+} from '@hatiolab/things-scene';
 
 function getGlobalScale(component) {
   var scale = { x: 1, y: 1 };

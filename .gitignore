@@ -3,7 +3,6 @@ logs
 *.log
 npm-debug.log*
 coverage
-dist
 node_modules
 bower_components
 *.report.html
