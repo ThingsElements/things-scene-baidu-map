@@ -1,18 +1,7 @@
-const {
-  resolve,
-  join,
-} = require('path');
-
-// const NodePackage = require('./package.json');
+const path = require('path');
 
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
-// const module_resolve = require('resolve');
-
-// const outputPath = resolve('.');
-// const thingsShellModulePath = __dirname;
-// const externModulesPath = resolve(__dirname, 'node_modules');
 
 module.exports = {
   mode: 'production',
@@ -20,7 +9,7 @@ module.exports = {
     "things-scene-baidu": ['./src/index.js']
   },
   output: {
-    path: resolve('./dist'),
+    path: path.resolve('./dist'),
     filename: '[name].js',
   },
   resolve: {
@@ -56,23 +45,6 @@ module.exports = {
         }
       }
     }, {
-      //   test: /\.template$/,
-      //   use: ['text-loader']
-      // }, {
-      //   test: /\.html$/,
-      //   use: [{
-      //     loader: 'babel-loader'
-      //   },
-      //   {
-      //     loader: 'polymer-webpack-loader'
-      //   }]
-      // }, {
-      //   test: /\.css$/,
-      //   use: ['text-loader']
-      // }, {
-      //   test: /\.postcss$/,
-      //   use: ['text-loader', 'postcss-loader']
-      // }, {
       test: /\.(gif|jpe?g|png)$/,
       loader: 'url-loader?limit=25000',
       query: {
