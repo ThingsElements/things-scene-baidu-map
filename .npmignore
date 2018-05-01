@@ -1,9 +1,13 @@
+DEPLOYMENT.md
+DEVELOPMENT.md
 bower_components
 node_modules
-boards
 licenses
-db.sqlite
-npm-debug.log
-.yo-rc.json
 .editorconfig
+.gitignore
+.git
 .vscode
+.travis
+.yo-rc.json
+npm-debug.log
+db.sqlite
