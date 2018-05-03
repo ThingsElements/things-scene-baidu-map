@@ -52,9 +52,10 @@ export default class BaiduMap extends HTMLOverlayContainer {
   static load(component) {
 
     var key = component.get('apiKey') || 'bMxSipKRYIqOi2q4M7XR7IqKM2Xt3fNy';
-    ScriptLoader.load(`http://api.map.baidu.com/getscript?v=1.3&ak=${key}&services=`, [
-      'http://api.map.baidu.com/res/13/bmap.css'
-    ]).then(() => component.onload(), error);
+    // ScriptLoader.load(`http://api.map.baidu.com/getscript?v=1.3&ak=${key}&services=`, [
+    //   'http://api.map.baidu.com/res/13/bmap.css'
+    ScriptLoader.load(`http://api.map.baidu.com/getscript?v=3.0&ak=${key}&services=&t=20180427193045`)
+      .then(() => component.onload(), error);
   }
 
   ready() {
@@ -111,7 +112,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
         zoom
       } = this.model
 
-      let point = new BMap.Point(lat, lng);
+      let point = new BMap.Point(lng, lat);
       this.map.centerAndZoom(point, zoom);
     }
   }
