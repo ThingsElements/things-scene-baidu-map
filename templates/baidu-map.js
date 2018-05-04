@@ -12,9 +12,9 @@ export default {
     top: 150,
     width: 300,
     height: 200,
-    lat: 22.308117,
-    lng: 114.225443,
-    zoom: 20,
+    lat: 22.6392,
+    lng: 113.811,
+    zoom: 10,
     apiKey: 'AIzaSyBgQZb-SFqjQBC_XTxNiz0XapejNwV9PgA'
   }
 };

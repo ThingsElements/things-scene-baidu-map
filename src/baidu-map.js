@@ -52,9 +52,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
   static load(component) {
 
     var key = component.get('apiKey') || 'bMxSipKRYIqOi2q4M7XR7IqKM2Xt3fNy';
-    // ScriptLoader.load(`http://api.map.baidu.com/getscript?v=1.3&ak=${key}&services=`, [
-    //   'http://api.map.baidu.com/res/13/bmap.css'
-    ScriptLoader.load(`http://api.map.baidu.com/getscript?v=3.0&ak=${key}&services=&t=20180427193045`)
+    ScriptLoader.load(`http://api.map.baidu.com/getscript?v=3.0&ak=${key}`)
       .then(() => component.onload(), error);
   }
 
@@ -89,8 +87,8 @@ export default class BaiduMap extends HTMLOverlayContainer {
       return
     var scale = getGlobalScale(this)
 
-    var sx = 1 / scale.x
-    var sy = 1 / scale.y
+    var sx = 1 / scale.x;
+    var sy = 1 / scale.y;
 
     var transform = `scale(${sx}, ${sy})`;
 
@@ -100,11 +98,11 @@ export default class BaiduMap extends HTMLOverlayContainer {
     })
 
     var { width, height } = this.model
-    anchor.style.width = width * scale.x + 'px'
-    anchor.style.height = height * scale.y + 'px'
+
+    anchor.style.width = Math.round(width * scale.x) + 'px';
+    anchor.style.height = Math.round(height * scale.y) + 'px';
 
     if (BaiduMap.loaded) {
-      // google.maps.event.trigger(this.map, "resize");
 
       let {
         lat,
@@ -113,14 +111,16 @@ export default class BaiduMap extends HTMLOverlayContainer {
       } = this.model
 
       let point = new BMap.Point(lng, lat);
+
       this.map.centerAndZoom(point, zoom);
-    }
+    };
   }
 
   createElement() {
     super.createElement();
     this._anchor = document.createElement('div')
     this.element.appendChild(this._anchor)
+
     this.rescale()
 
     this._markerComponents = []
@@ -155,18 +155,25 @@ export default class BaiduMap extends HTMLOverlayContainer {
 
       let map = new BMap.Map(this._anchor);
 
-      let point = new BMap.Point(lat, lng);
-      map.centerAndZoom(point, zoom);
       // map.setMinZoom(7);
       // map.setMaxZoom(19);
-
-      map.enableScrollWheelZoom();
+      map.addControl(new BMap.MapTypeControl({
+        mapTypes: [
+          BMAP_NORMAL_MAP,
+          BMAP_HYBRID_MAP
+        ]
+      }));
       // map.addControl(new BMap.ScaleControl());        // 添加比例尺控件
-      // map.addControl(new BMap.MapTypeControl());      // 添加地图类型控件
       // map.addControl(new BMap.NavigationControl());   // 添加缩放平移控件
       // map.addControl(new BMap.OverviewMapControl({
-      //   isOpen: true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT
+      //   isOpen: true,
+      //   anchor: BMAP_ANCHOR_BOTTOM_RIGHT
       // }));  // 添加缩略地图控件
+
+      let point = new BMap.Point(lng, lat);
+      map.enableScrollWheelZoom();
+
+      map.centerAndZoom(point, zoom);
 
       this._map = map;
     }
@@ -195,7 +202,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
         lng
       } = component.model
 
-      let point = new BMap.Point(lat, lng);
+      let point = new BMap.Point(lng, lat);
       let marker = new BMap.Marker(point);
       markers.push(marker)
 
@@ -218,7 +225,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
       lng
     } = component.model
 
-    let point = new BMap.Point(lat, lng);
+    let point = new BMap.Point(lng, lat);
     // TODO replace following code with Baidu API
     // marker.setPosition(new google.maps.LatLng(lat, lng))
   }
@@ -249,7 +256,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
         lng
       } = component.model
 
-      let point = new BMap.Point(lat, lng);
+      let point = new BMap.Point(lng, lat);
       let marker = new BMap.Marker(point);
       markers.push(marker)
 
@@ -297,7 +304,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
           zoom
         } = this.model
 
-        let point = new BMap.Point(lat, lng);
+        let point = new BMap.Point(lng, lat);
         this.map.centerAndZoom(point, zoom);
       }
     }
