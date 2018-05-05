@@ -33,7 +33,7 @@ module.exports = {
         options: {
           presets: [
             [
-              'es2015', {
+              'env', {
                 targets: {
                   browsers: ['last 2 Chrome versions', 'Safari 10']
                 },
