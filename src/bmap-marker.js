@@ -54,15 +54,8 @@ export default class BmapMarker extends RectPath(Shape) {
 
   get infoWindow() {
     if (!this._infoWindow) {
-      var opts = {
-        width: 200,     // 信息窗口宽度
-        height: 100,     // 信息窗口高度
-        title: "海底捞王府井店", // 信息窗口标题
-        enableMessage: true,//设置允许信息窗发送短息
-        message: "亲耐滴，晚上一起吃个饭吧？戳下面的链接看下地址喔~"
-      }
-
-      this._infoWindow = new BMap.InfoWindow('地址：北京市东城区王府井大街88号乐天银泰百货八层', opts);
+      /* TODO baidu map api가 style을 가져와서 document head에 포함시켰으나, infowindow에 적용되지 않음 */
+      this._infoWindow = new BMap.InfoWindow();
     }
 
     return this._infoWindow;
