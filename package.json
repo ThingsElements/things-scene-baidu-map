@@ -1,7 +1,7 @@
 {
   "name": "@things-scene/baidu-map",
   "description": "baidu-map component for things-scene",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "things-scene": true,
   "main": "src/index.js",
   "author": "heartyoh",
