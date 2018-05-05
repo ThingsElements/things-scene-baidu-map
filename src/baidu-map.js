@@ -85,6 +85,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
     var anchor = this._anchor;
     if (!anchor)
       return
+
     var scale = getGlobalScale(this)
 
     var sx = 1 / scale.x;
@@ -102,7 +103,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
     anchor.style.width = Math.round(width * scale.x) + 'px';
     anchor.style.height = Math.round(height * scale.y) + 'px';
 
-    if (BaiduMap.loaded) {
+    if (this.loaded) {
 
       let {
         lat,
@@ -113,15 +114,19 @@ export default class BaiduMap extends HTMLOverlayContainer {
       let point = new BMap.Point(lng, lat);
 
       this.map.centerAndZoom(point, zoom);
-    };
+
+      // requestAnimationFrame 으로는 제때 변경되지 않으므로, 부득이 setTimeout으로 넉넉히 시간을 주었음.
+      setTimeout(() => {
+        this.buildMarkers();
+      }, 200);
+    }
   }
 
   createElement() {
     super.createElement();
+
     this._anchor = document.createElement('div')
     this.element.appendChild(this._anchor)
-
-    this.rescale()
 
     this._markerComponents = []
     this._markers = []
@@ -132,13 +137,41 @@ export default class BaiduMap extends HTMLOverlayContainer {
   }
 
   onload() {
-    BaiduMap.loaded = true
 
-    var map = this.map
+    this.loaded = true;
 
-    this.buildMarkers()
+    this._map = this.createMap();
+    this.buildMarkers();
 
-    this.rescale()
+    this.rescale();
+  }
+
+  createMap() {
+    let map = new BMap.Map(this._anchor, {
+      minZoom: 4,
+      maxZoom: 20,
+      enableAutoResize: true,
+      enableHighResolution: true
+    });
+
+    map.enableScrollWheelZoom();
+    map.enableAutoResize();
+    // map.setMinZoom(7);
+    // map.setMaxZoom(19);
+    map.addControl(new BMap.MapTypeControl({
+      mapTypes: [
+        BMAP_NORMAL_MAP,
+        BMAP_HYBRID_MAP
+      ]
+    }));
+    // map.addControl(new BMap.ScaleControl());        // 添加比例尺控件
+    // map.addControl(new BMap.NavigationControl());   // 添加缩放平移控件
+    // map.addControl(new BMap.OverviewMapControl({
+    //   isOpen: true,
+    //   anchor: BMAP_ANCHOR_BOTTOM_RIGHT
+    // }));  // 添加缩略地图控件
+
+    return map;
   }
 
   get tagName() {
@@ -146,38 +179,6 @@ export default class BaiduMap extends HTMLOverlayContainer {
   }
 
   get map() {
-    if (!this._map) {
-      var {
-        lat,
-        lng,
-        zoom
-      } = this.model
-
-      let map = new BMap.Map(this._anchor);
-
-      // map.setMinZoom(7);
-      // map.setMaxZoom(19);
-      map.addControl(new BMap.MapTypeControl({
-        mapTypes: [
-          BMAP_NORMAL_MAP,
-          BMAP_HYBRID_MAP
-        ]
-      }));
-      // map.addControl(new BMap.ScaleControl());        // 添加比例尺控件
-      // map.addControl(new BMap.NavigationControl());   // 添加缩放平移控件
-      // map.addControl(new BMap.OverviewMapControl({
-      //   isOpen: true,
-      //   anchor: BMAP_ANCHOR_BOTTOM_RIGHT
-      // }));  // 添加缩略地图控件
-
-      let point = new BMap.Point(lng, lat);
-      map.enableScrollWheelZoom();
-
-      map.centerAndZoom(point, zoom);
-
-      this._map = map;
-    }
-
     return this._map
   }
 
@@ -195,6 +196,8 @@ export default class BaiduMap extends HTMLOverlayContainer {
 
   buildMarkers() {
     var markers = []
+
+    this.map.clearOverlays();
 
     this._markerComponents.forEach(component => {
       let {
@@ -216,7 +219,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
 
   touchMarker(component) {
     var idx = this._markerComponents.indexOf(component)
-    if (idx == -1 || !BaiduMap.loaded)
+    if (idx == -1 || !this.loaded)
       return
 
     var marker = this._markers[idx]
@@ -248,7 +251,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
       markerComponents.push(component)
       component.on('change', this._onmarkerchange)
 
-      if (!BaiduMap.loaded)
+      if (!this.loaded)
         return
 
       let {
@@ -260,7 +263,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
       let marker = new BMap.Marker(point);
       markers.push(marker)
 
-      this.map.addOverlay(marker);
+      this.map && this.map.addOverlay(marker);
 
       component.marker = marker
     }
@@ -274,11 +277,16 @@ export default class BaiduMap extends HTMLOverlayContainer {
     if (idx == -1)
       return
 
-    component.off('change', this._onmarkerchange)
-    component.marker = null
+    component.off('change', this._onmarkerchange);
+    component.marker = null;
 
-    this._markerComponents.splice(idx, 1)
-    var removals = this._markers.splice(idx, 1)
+    this._markerComponents.splice(idx, 1);
+    var removals = this._markers.splice(idx, 1);
+
+    if (removals.length > 0)
+      this.map && this.map.removeOverlay(removals[0]);
+
+    component.marker = null;
   }
 
   get markers() {
@@ -295,20 +303,6 @@ export default class BaiduMap extends HTMLOverlayContainer {
   }
 
   onchange(after, before) {
-    if (BaiduMap.loaded) {
-      if (after.zoom || after.hasOwnProperty('lat') || after.hasOwnProperty('lng')) {
-
-        let {
-          lat,
-          lng,
-          zoom
-        } = this.model
-
-        let point = new BMap.Point(lng, lat);
-        this.map.centerAndZoom(point, zoom);
-      }
-    }
-
     super.onchange(after, before)
 
     this.rescale()

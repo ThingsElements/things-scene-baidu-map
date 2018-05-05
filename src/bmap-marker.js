@@ -124,14 +124,6 @@ export default class BmapMarker extends RectPath(Shape) {
   set marker(marker) {
     var map = this.findMap();
 
-    if (this._marker && this._marker !== marker) {
-      map && map.map.removeOverlay(this._marker);
-      // this._marker.setMap(null);
-      // google.maps.event.clearInstanceListeners(this._marker);
-
-      delete this._marker
-    }
-
     if (marker) {
       marker.addEventListener('click', this.onmarkerclick.bind(this))
       marker.addEventListener('mouseover', this.onmarkermouseover.bind(this))
