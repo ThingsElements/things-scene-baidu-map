@@ -229,6 +229,7 @@ export default class BaiduMap extends HTMLOverlayContainer {
     } = component.model
 
     let point = new BMap.Point(lng, lat);
+    marker.setPosition(new BMap.Point(point))
     // TODO replace following code with Baidu API
     // marker.setPosition(new google.maps.LatLng(lat, lng))
   }
