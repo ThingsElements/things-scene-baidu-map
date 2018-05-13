@@ -14,7 +14,15 @@ const NATURE = {
     type: 'number',
     label: 'longitude',
     name: 'lng'
+  }/*, {
+    type: 'number',
+    label: 'glatitude',
+    name: 'glat'
   }, {
+    type: 'number',
+    label: 'glongitude',
+    name: 'glng'
+  }*/, {
     type: 'number',
     label: 'zoom',
     name: 'zoom'
@@ -306,7 +314,25 @@ export default class BaiduMap extends HTMLOverlayContainer {
   onchange(after, before) {
     super.onchange(after, before)
 
+    // if (after['glng'] || after['glat']) {
+    //   if (this.get('glng') && this.get('glat')) {
+    //     this.glatlngConvertor(this.get('glng'), this.get('glat'));
+    //   }
+    // }
+
     this.rescale()
+  }
+
+  glatlngConvertor(glng, glat) {
+    var convertor = new BMap.Convertor();
+    var pointArr = [];
+    pointArr.push(new BMap.Point(glng, glat));
+    convertor.translate(pointArr, 3, 5, (data) => {
+      if (data.status === 0) {
+        let point = data.points[0];
+        this.latlng = point;
+      }
+    });
   }
 
   get latlng() {
