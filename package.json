@@ -1,13 +1,15 @@
 {
   "name": "@things-scene/baidu-map",
   "description": "baidu-map component for things-scene",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "things-scene": true,
   "main": "src/index.js",
   "author": "heartyoh",
   "scripts": {
     "serve": "things-shell",
     "serve:dev": "things-shell-dev",
+    "migration:run": "things-shell-migration",
+    "migration:revert": "things-shell-migration --undo",
     "build:client": "webpack --config node_modules/@hatiolab/things-shell/webpack.config.js",
     "build": "webpack",
     "prepublish": "webpack"
