@@ -1,9 +1,11 @@
 {
   "name": "@things-scene/baidu-map",
   "description": "baidu-map component for things-scene",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "things-scene": true,
   "main": "src/index.js",
+  "module": "dist/things-scene-baidu-map.mjs",
+  "jsnext:main": "dist/things-scene-baidu-map.mjs",
   "author": "heartyoh",
   "scripts": {
     "serve": "things-shell",
@@ -11,17 +13,16 @@
     "migration:run": "things-shell-migration",
     "migration:revert": "things-shell-migration --undo",
     "build:client": "webpack --config node_modules/@hatiolab/things-shell/webpack.config.js",
-    "build": "webpack",
-    "prepublish": "webpack"
+    "build": "rollup -c",
+    "prepublish": "rollup -c"
   },
   "devDependencies": {
-    "@hatiolab/things-scene": "*"
-  },
-  "dependencies": {
     "@hatiolab/things-shell": "*",
     "@things-scene/form": "*",
     "@things-scene/random": "*",
-    "@things-scene/restful": "*",
-    "@things-scene/table": "*"
+    "@things-scene/restful": "*"
+  },
+  "dependencies": {
+    "@hatiolab/things-scene": "^2.5.0-rc"
   }
 }
