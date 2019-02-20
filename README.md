@@ -73,3 +73,14 @@ $ yarn publish
 - Things Shell [https://github.com/hatiolab/things-shell]
 - Things Shell Demo [https://github.com/hatiolab/things-shell-demo]
 - Things Yeoman Generator [https://github.com/hatiolab/generator-things]
+
+# Module
+
+## UMD
+
+- things-scene-baidu-map.js (for modern browser)
+- things-scene-baidu-map-ie.js (for ie 11)
+
+## ES Module
+
+- things-scene-baidu-map.mjs
