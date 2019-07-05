@@ -747,9 +747,9 @@
     "@hapi/hoek" "8.x.x"
 
 "@hatiolab/things-scene@*", "@hatiolab/things-scene@^2.5.25":
-  version "2.5.29"
-  resolved "https://registry.yarnpkg.com/@hatiolab/things-scene/-/things-scene-2.5.29.tgz#b4071a008a56d8414677a9a0af6698e80774f65b"
-  integrity sha512-SPDXyyti+X5+e3SQOUbGnkSLyDgjCKz7I8nYkYrJOWqKHx1s1gINpC/ibLxWpCr7i/rHznny0qcBFsWi/m08Pg==
+  version "2.5.30"
+  resolved "https://registry.yarnpkg.com/@hatiolab/things-scene/-/things-scene-2.5.30.tgz#6650bd7717923356e2e6c9e116a0f1b67cc2286e"
+  integrity sha512-6mQUUGv3k6PAbacwA75m8sj9ThLTk/T1WhmJACpavcK7kn2EQ3RIwWLhsq99ebOaZR60TptFdfftj9QkIDf6XQ==
   dependencies:
     lodash "^4.17.11"
 
@@ -7967,9 +7967,9 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
 simple-git@^1.85.0:
-  version "1.117.0"
-  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-1.117.0.tgz#dc12338dff8533bb28d49b51b6e6fce73071a00b"
-  integrity sha512-2hqTQFkWwU7+d6rWdxDpKnYih430Dek3LzJ3kUzimxOflpBclZUstI9b+Y4x4rSWvqKe698LyZGFAW02/Ja8kA==
+  version "1.118.0"
+  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-1.118.0.tgz#6e31d50672c58abdbdb0410fadfdb1db29bd71bd"
+  integrity sha512-0CaCfxdR7ula3EuOkrVFKBiqt7LcvMPfXgIdUhSwjC4A+OaO8yEPGjdO/kWY7ew9uYP9KEoH+dvslOOm7eVzkA==
   dependencies:
     debug "^4.0.1"
 

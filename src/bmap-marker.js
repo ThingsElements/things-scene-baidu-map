@@ -6,34 +6,33 @@ const NATURE = {
   mutable: false,
   resizable: true,
   rotatable: true,
-  properties: [{
-    type: 'string',
-    label: 'target-map',
-    name: 'targetMap'
-  }, {
-    type: 'number',
-    label: 'latitude',
-    name: 'lat'
-  }, {
-    type: 'number',
-    label: 'longitude',
-    name: 'lng'
-  }],
+  properties: [
+    {
+      type: 'string',
+      label: 'target-map',
+      name: 'targetMap'
+    },
+    {
+      type: 'number',
+      label: 'latitude',
+      name: 'lat'
+    },
+    {
+      type: 'number',
+      label: 'longitude',
+      name: 'lng'
+    }
+  ],
   'value-property': 'latlng'
 }
 
-import {
-  Component,
-  RectPath,
-  Shape
-} from '@hatiolab/things-scene';
+import { Component, RectPath, Shape } from '@hatiolab/things-scene'
+import { nonExecutableDefinitionMessage } from 'graphql/validation/rules/ExecutableDefinitions'
 
 export default class BmapMarker extends RectPath(Shape) {
-
   static get nature() {
-    return NATURE;
+    return NATURE
   }
-
 
   dispose() {
     var map = this.findMap()
@@ -55,72 +54,83 @@ export default class BmapMarker extends RectPath(Shape) {
   get infoWindow() {
     if (!this._infoWindow) {
       /* TODO baidu map api가 style을 가져와서 document head에 포함시켰으나, infowindow에 적용되지 않음 */
-      this._infoWindow = new BMap.InfoWindow();
+      var opts = {}
+      this._infoWindow = new BMap.InfoWindow('', opts)
     }
 
-    return this._infoWindow;
+    return this._infoWindow
   }
 
   findInfoWindow(type) {
-    var event = this.model.event;
-    var infoWindow = event && event[type] && event[type].infoWindow;
-
-    if (infoWindow)
-      return this.root.findById(infoWindow)
+    var event = this.model.event
+    var infoWindow = event && event[type] && event[type].infoWindow
+    if (infoWindow) return this.root.findById(infoWindow)
   }
 
   setInfoContent(sceneInfoWindow) {
+    var tpl = Component.template(sceneInfoWindow.model.frontSideTemplate)
+    var bmapInfoStyle = `
+      /*infoWindow의 css가 투명한 곳과 제대로 나오는 곳이 섞여있어 해결을 위해 작성*/
+      .BMap_pop div:nth-child(1) {
+        display : none;
+      }
+      .BMap_pop img{
+        top : 36px !important;
+      }
+      .BMap_pop .BMap_center{
+        background-color:white;
+        border: 1px solid #ababab;
+        padding-bottom: 23px;
+      }
 
-    var tpl = Component.template(sceneInfoWindow.model.frontSideTemplate);
-    var content = `<style>${sceneInfoWindow.model.style}</style>` + tpl(this);
+      /*mouseover과 mouseout이 반복하여 발생하여 깜빡임 현상 해결을 위해 작성*/
+      .BMap_pop div:nth-child(8) {
+        left: 159px !important;
+      }
+    `
+    var content = `<style>${sceneInfoWindow.model.style}${bmapInfoStyle}</style>` + tpl(this)
 
-    this.infoWindow.setContent(content);
+    this.infoWindow.setContent(content)
   }
 
   openInfoWindow(iw) {
     this.setInfoContent(iw)
+    var map = this.findMap()
+    if (!map || !map.map) return
 
-    var map = this.findMap();
-    if (!map || !map.map)
-      return
+    let { lat, lng } = this.model
 
-    let {
-      lat,
-      lng
-    } = this.model
+    let point = new BMap.Point(lng, lat)
 
-    let point = new BMap.Point(lng, lat);
-    map.map.openInfoWindow(this._infoWindow, point);
+    map.map.openInfoWindow(this._infoWindow, point)
   }
 
   onmarkerclick(e) {
     var iw = this.findInfoWindow('tap')
-    iw && this.openInfoWindow(iw);
-
+    iw && this.openInfoWindow(iw)
     this.trigger('click', e)
   }
 
   onmarkermouseover(e) {
     var iw = this.findInfoWindow('hover')
-    iw && this.openInfoWindow(iw);
-
+    iw && this.openInfoWindow(iw)
     // this.trigger('mouseenter', e)
   }
 
   onmarkermouseout(e) {
     var iw = this.findInfoWindow('hover')
-    iw && this.infoWindow.close();
-
+    iw && this.infoWindow.close()
     // this.trigger('mouseleave', e)
   }
 
   set marker(marker) {
-    var map = this.findMap();
+    var map = this.findMap()
 
     if (marker) {
       marker.addEventListener('click', this.onmarkerclick.bind(this))
       marker.addEventListener('mouseover', this.onmarkermouseover.bind(this))
       marker.addEventListener('mouseout', this.onmarkermouseout.bind(this))
+      // marker.addEventListener('mouseout', this.onmarkermouseout.bind(this))
 
       this._marker = marker
     }
@@ -135,13 +145,7 @@ export default class BmapMarker extends RectPath(Shape) {
   }
 
   _draw(context) {
-
-    var {
-      top,
-      left,
-      width,
-      height
-    } = this.model;
+    var { top, left, width, height } = this.model
 
     context.translate(left, top)
 
@@ -159,7 +163,7 @@ export default class BmapMarker extends RectPath(Shape) {
     context.translate(-left, -top)
   }
 
-  get controls() { }
+  get controls() {}
 
   findMap(id) {
     id = id || this.get('targetMap')
@@ -168,8 +172,7 @@ export default class BmapMarker extends RectPath(Shape) {
   }
 
   get click_handler() {
-    if (!this._click_handler)
-      this._click_handler = this.onmarkerclick.bind(this)
+    if (!this._click_handler) this._click_handler = this.onmarkerclick.bind(this)
 
     return this._click_handler
   }
@@ -200,4 +203,4 @@ export default class BmapMarker extends RectPath(Shape) {
   }
 }
 
-Component.register('bmap-marker', BmapMarker);
+Component.register('bmap-marker', BmapMarker)
