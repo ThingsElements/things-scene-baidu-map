@@ -53,7 +53,7 @@ export default class BmapMarker extends RectPath(Shape) {
   get infoWindow() {
     if (!this._infoWindow) {
       /* TODO baidu map api가 style을 가져와서 document head에 포함시켰으나, infowindow에 적용되지 않음 */
-      var opts = {}
+      var opts = { maxWidth: 322, width: 322 }
       this._infoWindow = new BMap.InfoWindow('', opts)
     }
 
@@ -69,23 +69,16 @@ export default class BmapMarker extends RectPath(Shape) {
   setInfoContent(sceneInfoWindow) {
     var tpl = Component.template(sceneInfoWindow.model.frontSideTemplate)
     var bmapInfoStyle = `
-      /*infoWindow의 css가 투명한 곳과 제대로 나오는 곳이 섞여있어 해결을 위해 작성*/
-      .BMap_pop div:nth-child(1) {
-        display : none;
+      /*mouseover과 mouseout이 반복하여 발생하여 깜빡임 현상 해결을 위해 작성*/
+      .BMap_pop div:nth-child(8){
+        left: 172px !important;
       }
-      .BMap_pop img{
-        top : 36px !important;
-      }
-      .BMap_pop .BMap_center{
-        background-color:white;
-        border: 1px solid #ababab;
-        padding-bottom: 23px;
+      /*content 가운데 정렬*/
+      .BMap_bubble_content{
+        text-align: center;
       }
 
-      /*mouseover과 mouseout이 반복하여 발생하여 깜빡임 현상 해결을 위해 작성*/
-      .BMap_pop div:nth-child(8) {
-        left: 159px !important;
-      }
+
     `
     var content = `<style>${sceneInfoWindow.model.style}${bmapInfoStyle}</style>` + tpl(this)
 
