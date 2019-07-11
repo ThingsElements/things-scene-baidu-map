@@ -27,7 +27,6 @@ const NATURE = {
 }
 
 import { Component, RectPath, Shape } from '@hatiolab/things-scene'
-import { nonExecutableDefinitionMessage } from 'graphql/validation/rules/ExecutableDefinitions'
 
 export default class BmapMarker extends RectPath(Shape) {
   static get nature() {
