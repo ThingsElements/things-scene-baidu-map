@@ -71,7 +71,7 @@ export default class BmapMarker extends RectPath(Shape) {
     var bmapInfoStyle = `
       /*mouseover과 mouseout이 반복하여 발생하여 깜빡임 현상 해결을 위해 작성*/
       .BMap_pop div:nth-child(8){
-        left: 172px !important;
+        margin-left: 13px !important;
       }
       /*content 가운데 정렬*/
       .BMap_bubble_content{
