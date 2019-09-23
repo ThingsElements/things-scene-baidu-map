@@ -8,3 +8,4 @@ dist-client
 bower_components
 *.report.html
 licenses/*.js
+db.sqlite
