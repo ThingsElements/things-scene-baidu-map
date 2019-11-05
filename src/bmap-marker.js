@@ -8,9 +8,12 @@ const NATURE = {
   rotatable: true,
   properties: [
     {
-      type: 'string',
+      type: 'id-input',
       label: 'target-map',
-      name: 'targetMap'
+      name: 'targetMap',
+      property: {
+        component: 'baidu-map' // component의 type (null or undefined이면 모든 컴포넌트)
+      }
     },
     {
       type: 'number',

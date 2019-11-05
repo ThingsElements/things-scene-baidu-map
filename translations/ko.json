@@ -1,3 +1,14 @@
 {
-  "keyword": "키워드"
+  "label.address": "주소",
+  "label.api-key": "api key",
+  "label.center-name": "센터 명",
+  "label.image-src": "이미지 소스",
+  "label.latitude": "위도",
+  "label.longitude": "경도",
+  "label.popup-event-type": "Popup 이벤트 타입",
+  "label.popup-height": "Popup 창 높이",
+  "label.popup-width": "Popup 창 넓이",
+  "label.target-map": "target map",
+  "label.tel-num": "전화번호",
+  "label.zoom": "Zoom"
 }

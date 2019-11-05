@@ -1,3 +1,14 @@
 {
-  "keyword": "keyword"
+  "label.address": "address",
+  "label.api-key": "api key",
+  "label.center-name": "Center Name",
+  "label.image-src": "Image Source",
+  "label.latitude": "Latitude",
+  "label.longitude": "Longitude",
+  "label.popup-event-type": "Popup Event Type",
+  "label.popup-height": "Popup Height",
+  "label.popup-width": "Popup Width",
+  "label.target-map": "Target map",
+  "label.tel-num": "Telephone Number",
+  "label.zoom": "Zoom"
 }

@@ -1,3 +1,14 @@
 {
-  "keyword": "keyword"
+  "label.address": "address",
+  "label.api-key": "API密钥",
+  "label.center-name": "Center Name",
+  "label.image-src": "像源",
+  "label.latitude": "纬度",
+  "label.longitude": "经度",
+  "label.popup-event-type": "Popup Event Type",
+  "label.popup-height": "Popup Height",
+  "label.popup-width": "Popup Width",
+  "label.target-map": "目标地图",
+  "label.tel-num": "Telephone Number",
+  "label.zoom": "变焦"
 }

@@ -9,3 +9,4 @@ bower_components
 *.report.html
 licenses/*.js
 db.sqlite
+yarn.lock
