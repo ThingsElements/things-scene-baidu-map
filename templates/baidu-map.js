@@ -1,4 +1,4 @@
-import icon from './baidu-map.png';
+import icon from '../assets/baidu-map.png'
 
 export default {
   type: 'baidu-map',
@@ -17,4 +17,4 @@ export default {
     zoom: 10,
     apiKey: 'AIzaSyBgQZb-SFqjQBC_XTxNiz0XapejNwV9PgA'
   }
-};
+}

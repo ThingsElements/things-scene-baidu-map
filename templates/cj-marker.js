@@ -1,4 +1,4 @@
-import icon from './cj-marker.png'
+import icon from '../assets/bmap-marker.png'
 
 export default {
   type: 'cj-marker',

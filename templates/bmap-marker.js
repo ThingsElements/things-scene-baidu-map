@@ -1,4 +1,4 @@
-import icon from './bmap-marker.png';
+import icon from '../assets/bmap-marker.png'
 
 export default {
   type: 'bmap-marker',
@@ -17,4 +17,4 @@ export default {
     fillStyle: '#00ff00',
     hidden: true
   }
-};
+}
