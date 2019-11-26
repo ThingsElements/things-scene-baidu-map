@@ -49,7 +49,7 @@ function getGlobalScale(component) {
 
 export default class BaiduMap extends HTMLOverlayContainer {
   static load(component) {
-    var key = component.get('apiKey') || 'bMxSipKRYIqOi2q4M7XR7IqKM2Xt3fNy'
+    var key = component.get('apiKey')
     ScriptLoader.load(`http://api.map.baidu.com/getscript?v=3.0&ak=${key}`).then(() => component.onload(), error)
   }
 
