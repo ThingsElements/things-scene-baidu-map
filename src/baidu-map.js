@@ -127,6 +127,10 @@ export default class BaiduMap extends HTMLOverlayContainer {
     BaiduMap.load(this)
   }
 
+  userInputEventHandler(e) {
+    // don't stop propagation
+  }
+
   onload() {
     this.loaded = true
 
